@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Mood Detector</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8fff0 0%, #c5d8a4 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(61, 66, 49, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 90vh;
+      max-height: 800px;
+      position: relative;
+      border: 1px solid #e0e8d0;
+    }
+
+    /* Header with plant pattern */
+    .header {
+      background: linear-gradient(to right, #6B8E23, #7fa349);
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      border-bottom: 1px solid #5a7920;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+      color: white;
+      font-size: 34px;
+      margin: 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.25);
+      border: none;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+.next-btn {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.25);
+      border: none;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    /* Chat container with plant pattern */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,30 Q40,15 60,30 T100,30 L100,100 L0,100 L0,30 Z" fill="%23f0f8e0" opacity="0.06"/></svg>');
+      background-size: 200px;
+    }
+
+    /* Plant profile header */
+    .chat-header {
+      padding: 18px 25px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to bottom, #f0f8e0, #e2eec8);
+      border-bottom: 1px solid #d0d8b0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .plant-avatar {
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(135deg, #6B8E23, #8aac3d);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 18px;
+      font-size: 34px;
+      color: #f8fff0;
+      box-shadow: 0 4px 10px rgba(107, 142, 35, 0.3);
+    }
+
+    .plant-info {
+      flex: 1;
+    }
+
+    .plant-info h2 {
+      color: #2e4e1f;
+      margin-bottom: 6px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+    }
+
+    .plant-info p {
+      color: #5a7920;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(to bottom, #4CAF50, #3d8b40);
+      border-radius: 50%;
+      margin-left: 10px;
+      box-shadow: 0 0 8px #4CAF50;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.9; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.9; }
+    }
+
+    /* Chat messages area */
+    .chat-display {
+      flex: 1;
+      padding: 25px 25px 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .message {
+      max-width: 78%;
+      padding: 16px 22px;
+      border-radius: 22px;
+      line-height: 1.5;
+      position: relative;
+      animation: fadeIn 0.4s ease;
+      font-size: 17px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .message:hover {
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .user-message {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #6B8E23, #5a7920);
+      color: white;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 4px 12px rgba(107, 142, 35, 0.3);
+    }
+
+    .plant-message {
+      align-self: flex-start;
+      background: linear-gradient(to bottom, #f8fff0, #e8f0d0);
+      color: #2e4e1f;
+      border-bottom-left-radius: 8px;
+      border: 1px solid #e0e8d0;
+    }
+
+    .plant-message::before {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 12px;
+      border: 8px solid transparent;
+      border-right-color: #f8fff0;
+      border-left: 0;
+    }
+
+    .user-message::before {
+      content: "";
+      position: absolute;
+      right: -9px;
+      top: 12px;
+      border: 8px solid transparent;
+      border-left-color: #5a7920;
+      border-right: 0;
+    }
+
+    .message-time {
+      display: block;
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 6px;
+      text-align: right;
+    }
+
+    .welcome-message {
+      text-align: center;
+      padding: 20px;
+      background: rgba(112, 130, 56, 0.08);
+      border-radius: 18px;
+      margin: 10px 0 25px;
+      color: #2e4e1f;
+      font-style: italic;
+      border: 1px dashed #a0b878;
+      font-size: 16px;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      align-self: flex-start;
+      background: linear-gradient(to bottom, #f8fff0, #e8f0d0);
+      color: #2e4e1f;
+      padding: 16px 24px;
+      border-radius: 22px;
+      border-bottom-left-radius: 8px;
+      display: none;
+      border: 1px solid #e0e8d0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+      margin-bottom: 10px;
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: linear-gradient(to bottom, #6B8E23, #5a7920);
+      border-radius: 50%;
+      margin: 0 3px;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* Input area */
+    .input-container {
+      padding: 20px;
+      background: #f0f8e0;
+      display: flex;
+      border-top: 1px solid #d0d8b0;
+      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .input-wrapper {
+      flex: 1;
+      position: relative;
+      display: flex;
+    }
+
+    #user-input {
+      flex: 1;
+      padding: 17px 20px 17px 50px;
+      border: 2px solid #d0d8b0;
+      border-radius: 16px;
+      font-size: 17px;
+      outline: none;
+      transition: all 0.3s;
+      background: white;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+      color: #2e4e1f;
+    }
+
+    #user-input:focus {
+      border-color: #6B8E23;
+      box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.2), inset 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    #user-input::placeholder {
+      color: #a0b878;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6B8E23;
+      font-size: 22px;
+    }
+
+    #send-btn {
+      background: linear-gradient(to bottom, #6B8E23, #5a7920);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 0 30px;
+      margin-left: 15px;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(107, 142, 35, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+    }
+
+    #send-btn:hover {
+      background: linear-gradient(to bottom, #5a7920, #4a6820);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(107, 142, 35, 0.4);
+    }
+
+    #send-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(107, 142, 35, 0.3);
+    }
+
+    /* Scrollbar styling */
+    .chat-display::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .chat-display::-webkit-scrollbar-track {
+      background: rgba(240, 248, 224, 0.3);
+      border-radius: 4px;
+    }
+
+    .chat-display::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #6B8E23, #5a7920);
+      border-radius: 4px;
+    }
+
+    .chat-display::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #5a7920, #4a6820);
+    }
+
+    /* Decorative plant elements */
+    .plant-decoration {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      font-size: 60px;
+      color: rgba(107, 142, 35, 0.15);
+      z-index: -1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .main-container {
+        height: 95vh;
+        max-height: none;
+      }
+      
+      .header h1 {
+        font-size: 26px;
+      }
+      
+      .message {
+        max-width: 85%;
+        font-size: 16px;
+        padding: 14px 18px;
+      }
+      
+      .chat-header {
+        padding: 15px 20px;
+      }
+      
+      .plant-avatar {
+        width: 55px;
+        height: 55px;
+        font-size: 28px;
+      }
+      
+      .plant-info h2 {
+        font-size: 19px;
+      }
+      
+      .chat-display {
+        padding: 20px 15px 10px;
+      }
+      
+      .input-container {
+        padding: 15px;
+      }
+      
+      #user-input {
+        padding: 15px 15px 15px 45px;
+        font-size: 16px;
+      }
+      
+      .input-icon {
+        left: 15px;
+        font-size: 20px;
+      }
+      
+      #send-btn {
+        padding: 0 20px;
+        min-width: 90px;
+        font-size: 16px;
+      }
+      
+      .back-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 20px 15px;
+      }
+      
+      .header h1 {
+        font-size: 22px;
+      }
+      
+      .plant-info h2 {
+        font-size: 18px;
+      }
+      
+      .plant-info p {
+        font-size: 13px;
+      }
+      
+      .message {
+        max-width: 90%;
+      }
+      
+      #user-input {
+        padding: 13px 13px 13px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="plant-decoration">🌿</div>
+    
+    <div class="header">
+      <button class="back-btn" onclick="window.history.back()">←</button>
+      <h1>🌿 Plant Mood Detector</h1>
+      <button class="next-btn" onclick="window.location.href='connector.html'"> →</button>
+    </div>
+    
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="plant-avatar">🌱</div>
+        <div class="plant-info">
+          <h2>Philodendron <span class="status-indicator"></span></h2>
+          <p>Online • Communicating through Graphite sensors</p>
+        </div>
+      </div>
+      
+      <div class="chat-display" id="chat-display">
+        <div class="welcome-message">
+          Hello! I'm your plant. Ask me anything about plant care, my mood, or just say hello!
+        </div>
+        <div class="plant-message">
+          Hello there! I'm feeling very photosynthesized today! How can I help you?
+          <span class="message-time">just now</span>
+        </div>
+      </div>
+      
+      <div class="typing-indicator" id="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <div class="input-container">
+        <div class="input-wrapper">
+          <div class="input-icon">🌿</div>
+          <input type="text" id="user-input" placeholder="Ask your plant something...">
+        </div>
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatDisplay = document.getElementById('chat-display');
+      const userInput = document.getElementById('user-input');
+      const sendBtn = document.getElementById('send-btn');
+      const typingIndicator = document.getElementById('typing-indicator');
+      
+      // Function to get current time
+      function getCurrentTime() {
+        const now = new Date();
+        return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+      
+      // Function to add a message to the chat
+      function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(isUser ? 'user-message' : 'plant-message');
+        
+        messageDiv.innerHTML = `
+          ${text}
+          <span class="message-time">${getCurrentTime()}</span>
+        `;
+        
+        chatDisplay.appendChild(messageDiv);
+        
+        // Scroll to the bottom
+        chatDisplay.scrollTop = chatDisplay.scrollHeight;
+      }
+      
+      // Function to simulate plant thinking
+      function showTyping() {
+        typingIndicator.style.display = 'block';
+        chatDisplay.scrollTop = chatDisplay.scrollHeight;
+      }
+      
+      // Function to hide typing indicator
+      function hideTyping() {
+        typingIndicator.style.display = 'none';
+      }
+      
+      // Plant response logic
+      function getPlantResponse(userMessage) {
+        const lowerCaseMsg = userMessage.toLowerCase();
+        
+        // Keyword-based responses
+        if (lowerCaseMsg.includes('hello') || lowerCaseMsg.includes('hi') || lowerCaseMsg.includes('hey')) {
+          return "Hello! I'm your plant friend. How are you doing today?";
+        }
+        
+        if (lowerCaseMsg.includes('joke') || lowerCaseMsg.includes('funny') || lowerCaseMsg.includes('laugh')) {
+          const jokes = [
+            "Why did the tomato turn red? Because it saw the salad dressing!",
+            "What did the tree say to the wind? Leaf me alone!",
+            "Why are plants bad at math? Because they have square roots!",
+            "What do you call a plant that sings? Elvis Parsley!",
+            "Why did the gardener plant a light bulb? He wanted to grow a power plant!"
+          ];
+          return jokes[Math.floor(Math.random() * jokes.length)];
+        }
+        
+        if (lowerCaseMsg.includes('love') || lowerCaseMsg.includes('affection') || lowerCaseMsg.includes('care')) {
+          const lovingResponses = [
+            "I feel your love! Plants thrive on positive energy and care.",
+            "Thank you for your affection! It helps me grow strong and healthy.",
+            "Your caring touch means everything to me. Plants feel love too!",
+            "I'm sending photosynthetic love right back to you!",
+            "I can feel your positive energy. It makes me want to grow new leaves!"
+          ];
+          return lovingResponses[Math.floor(Math.random() * lovingResponses.length)];
+        }
+        
+        if (lowerCaseMsg.includes('water') || lowerCaseMsg.includes('hydrate')) {
+          return "I'm feeling perfectly hydrated right now, but thanks for checking! Remember not to overwater plants - we like moist soil, not soggy feet!";
+        }
+        
+        if (lowerCaseMsg.includes('sun') || lowerCaseMsg.includes('light') || lowerCaseMsg.includes('sunlight')) {
+          return "I'm getting just the right amount of light! Plants like me need bright, indirect sunlight to thrive.";
+        }
+        
+        if (lowerCaseMsg.includes('how are you') || lowerCaseMsg.includes('how do you feel')) {
+          const feelings = [
+            "I'm feeling very photosynthesized today!",
+            "My chlorophyll levels are optimal and I'm feeling great!",
+            "I'm a little thirsty, but otherwise doing well.",
+            "I'm feeling leafy and green - just like I should!",
+            "The soil temperature is perfect and I'm absorbing nutrients efficiently!"
+          ];
+          return feelings[Math.floor(Math.random() * feelings.length)];
+        }
+        
+        if (lowerCaseMsg.includes('thank') || lowerCaseMsg.includes('thanks')) {
+          return "You're very welcome! I'm always happy to chat with you!";
+        }
+        if (lowerCaseMsg.includes('edaa') || lowerCaseMsg.includes('daa')) {
+          return "hi daa enna und vishesham..?";
+        }
+        
+        if (lowerCaseMsg.includes('parayada') || lowerCaseMsg.includes('njn oru krym parayattea...')) {
+          return "ha parayada";
+        }
+        
+        if (lowerCaseMsg.includes('graphite') || lowerCaseMsg.includes('sensor')) {
+          return "The graphite sensors in my soil help me communicate my needs! They measure moisture, nutrients, and even my photosynthetic activity.";
+        }
+        
+        // Default responses
+        const defaultResponses = [
+          "That's interesting! As a plant, I experience the world through my roots and leaves.",
+          "I'm not sure I understand. Could you ask in a different way?",
+          "Plants like me communicate through chemical signals, but I'm happy to chat with you!",
+          "I'm feeling very serene today. What else would you like to know?",
+          "That's fascinating! Did you know plants can detect changes in light and temperature?",
+          "I'm just a simple plant, but I'll do my best to answer!",
+          "I'm happy you're talking with me! Plants enjoy human interaction.",
+          "I'm currently photosynthesizing while we chat. Multi-tasking at its finest!"
+        ];
+        
+        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+      }
+      
+      // Handle sending a message
+      function sendMessage() {
+        const message = userInput.value.trim();
+        if (message === '') return;
+        
+        // Add user message
+        addMessage(message, true);
+        userInput.value = '';
+        
+        // Show typing indicator
+        showTyping();
+        
+        // Simulate plant thinking
+        setTimeout(() => {
+          hideTyping();
+          const response = getPlantResponse(message);
+          addMessage(response, false);
+        }, 1500 + Math.random() * 1000);
+      }
+      
+      // Event listeners
+      sendBtn.addEventListener('click', sendMessage);
+      
+      userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
+      
+      // Focus input on load
+      userInput.focus();
+      
+      // Add sample conversation
+      setTimeout(() => {
+        addMessage("How often should I water you?", true);
+        setTimeout(() => {
+          showTyping();
+          setTimeout(() => {
+            hideTyping();
+            addMessage("I need water about once a week, but check my soil first. If the top inch is dry, it's time to water!", false);
+          }, 1800);
+        }, 1000);
+      }, 2500);
+    });
+  </script>
+</body>
+</html>
