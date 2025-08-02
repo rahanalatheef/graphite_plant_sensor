@@ -90,7 +90,7 @@ Auto-generated poetry feed where the plant expresses its graphite cravings in be
 ### Project Demo
 # Video
 
-*Explain what the video demonstrates*
+(https://drive.google.com/file/d/1aQto2-jJw_CEZpjcO-plJSQEyNopkaKT/view?usp=drive_link)
 
 # Additional Demos
 [Add any extra demo materials/links]
