@@ -56,7 +56,8 @@ For Software:
 
 # Screenshots (Add at least 3)
 ![Screenshot1](
-![Uploading Screenshot 2025-08-02 064621.png…]()
+<img width="1197" height="854" alt="Screenshot 2025-08-02 064621" src="https://github.com/user-attachments/assets/2bb4d30c-dc7d-4e0a-b7a7-b6280789d270" />
+
 
 **Main dashboard view showing live graphite levels, with a sad plant icon slowly wilting as the graphite drops.
 ![Screenshot2]
