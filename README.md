@@ -1,73 +1,76 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
-# [Project Name] 🎯
+# [Graphite plant sensor] 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+https://graphite-plant-sensor-rlya.vercel.app/ 
+### Team Name: [Null pointers]
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: [Rahana Latheef] - [Mar baselios christian college of engineering and technology]
+- Member 2: [Anugraha sunny] - [Mar baselios christian college of engineering and technology]
+- Member 3: [Rahana Latheef] - [Mar baselios christian college of engineering and technology]
 
 ### Project Description
-[2-3 lines about what your project does]
+[A cutting-edge sensor that detects when your houseplants are craving more graphite. Because photosynthesis clearly isn’t enough.]
+
+
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
-
+Plants are out here living their best green lives... but what if they’re secretly yearning for graphite? Pencils sit ignored while your ficus weeps in artistic silence.
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+[We created a sensor that measures your plant’s graphite deficiency levels using totally made-up science. When your fern hits critical graphite hunger, it triggers a tiny pencil-sharpener alarm. Bonus: it tweets your plant’s status using plant-themed poetry.]
 
 ## Technical Details
 ### Technologies/Components Used
-For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+For Software:For Software:
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+[Languages used: HTML (for serious structure), CSS (for leafy aesthetics), JavaScript (to animate sad plant eyes when graphite is low)][
+
+[Frameworks used: React (because your plant deserves a dynamic UI)]
+
+[Libraries used: Chart.js (to graph the graphite levels over time... obviously), Poetry.js (to auto-generate sad haikus from your plant)]
+
+[Tools used: Git (to version control plant moods), Netlify (to deploy the leafy cry for help)]
+
+
+
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+[git clone https://github.com/yourusername/graphite-plant-sensor  
+cd graphite-plant-sensor  
+npm install]
 
 # Run
-[commands]
+[npm start  
+# Then open http://localhost:3000 and listen for your plants crying in graphite-deficiency].  
+
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot1](https://drive.google.com/file/d/1dJ6vMsEHB9nYrLvTYfhe6nWgH7SwwXoG/view?usp=drive_link)
+**Main dashboard view showing live graphite levels, with a sad plant icon slowly wilting as the graphite drops.
+![Screenshot2](https://drive.google.com/file/d/1OQwrUI9bQH9EhTzZ-vlXBwC4iHr-9fBJ/view?usp=drive_link)
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot3](https://drive.google.com/file/d/1PY99jSZ9PCl_UtYbxQsHxzLw0TNN5wbK/view?usp=drive_link)
+
+Auto-generated poetry feed where the plant expresses its graphite cravings in beautiful haikus.
 
 # Diagrams
 ![Workflow](Add your workflow/architecture diagram here)
 *Add caption explaining your workflow*
 
-For Hardware:
 
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
 
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
+
 
 # Build Photos
 ![Components](Add photo of your components here)
@@ -81,16 +84,22 @@ For Hardware:
 
 ### Project Demo
 # Video
-[Add your demo video link here]
+[https://drive.google.com/file/d/1aQto2-jJw_CEZpjcO-plJSQEyNopkaKT/view?usp=drive_link}
 *Explain what the video demonstrates*
 
 # Additional Demos
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+Leaf Engineer (Name 1):
+Designed the Graphite Detection Algorithm™ and trained the sensor to recognize the emotional spectrum of plant sadness. Also responsible for naming the cactus “Graphito.”
+
+Front-End Botanist (Name 2):
+Built the React-based dashboard where plant data blooms in real time. Styled the sad plant animations and programmed the emergency “pencil now” pop-up alert.
+
+Back-End Sap Master (Name 3):
+Set up the Node.js server, connected Twitter API for poetic graphite alerts, and ensured that data from the Arduino flows like photosynthesis.
+
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
