@@ -55,12 +55,16 @@ npm install]
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](https://drive.google.com/file/d/1dJ6vMsEHB9nYrLvTYfhe6nWgH7SwwXoG/view?usp=drive_link)
+![Screenshot1](
+![Uploading Screenshot 2025-08-02 064621.png…]()
+
 **Main dashboard view showing live graphite levels, with a sad plant icon slowly wilting as the graphite drops.
-![Screenshot2](https://drive.google.com/file/d/1OQwrUI9bQH9EhTzZ-vlXBwC4iHr-9fBJ/view?usp=drive_link)
+![Screenshot2]
+<img width="1386" height="821" alt="Screenshot 2025-08-02 064643" src="https://github.com/user-attachments/assets/692a8de2-b774-45ca-ba55-562f05ae91e2" />
 
+![Screenshot3]
+<img width="1721" height="762" alt="Screenshot 2025-08-02 064727" src="https://github.com/user-attachments/assets/db01b837-de7d-4892-bc3e-20b6659d8ada" />
 
-![Screenshot3](https://drive.google.com/file/d/1PY99jSZ9PCl_UtYbxQsHxzLw0TNN5wbK/view?usp=drive_link)
 
 Auto-generated poetry feed where the plant expresses its graphite cravings in beautiful haikus.
 
@@ -84,7 +88,7 @@ Auto-generated poetry feed where the plant expresses its graphite cravings in be
 
 ### Project Demo
 # Video
-[https://drive.google.com/file/d/1aQto2-jJw_CEZpjcO-plJSQEyNopkaKT/view?usp=drive_link}
+
 *Explain what the video demonstrates*
 
 # Additional Demos
